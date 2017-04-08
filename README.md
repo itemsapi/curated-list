@@ -1,15 +1,13 @@
-# ItemsJS server
+# Curated list
+
+Building nice curated list by editing yaml file with github community
 
 ## Getting started
 
-## Example
+You can preview how it looks like although it's very early prototype.
+At the moment it shows only list of movies.
 
 ```bash
-curl -XGET localhost:3000/search
-curl -XGET localhost:3002/search?filters={"genre":["Drama"]}
+npm install
+npm start
 ```
-
-## TODO
-
-- improve docs
-- cli interface
