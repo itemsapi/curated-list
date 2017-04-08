@@ -1,0 +1,135 @@
+{% if is_ajax == false %}
+  {% extends "basic/layout.html.twig" %}
+  {% block title %}{% endblock %}
+  {% block description %}{% endblock %}
+{% endif %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding-left: 0;">
+      <div id="custom-search-input">
+        <form action="/catalog" method="GET">
+          <div class="input-group col-md-12">
+            <input type="text" id="main_query" class="form-control input-lg" name="query" value="{{ query }}" placeholder="Search items.." />
+            <span class="input-group-btn">
+              <button class="btn btn-info btn-lg" type="button">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-2" style="padding-left: 0;">
+
+      {% for val in (aggregations | sortObject('position', 'desc')) %}
+      <div class="">
+        <h5 style="margin-bottom: 5px;"><strong style="color: #337ab7;">{{ aggregations[val.key].title }}</strong></h5>
+        <ul class="browse-list list-unstyled long-list" style="margin-bottom: 0;">
+          {% for term in aggregations[val.key].buckets %}
+          <li ng-repeat="bucket in agg.buckets">
+          <div class="checkbox block" style="margin-top: 0; margin-bottom: 0;">
+            <label>
+              <input class="checkbox" type="checkbox" {% if (filter and filter.val == term.key and filter.key == val.key) or in_array(term.key, filters[val.key]) %}checked="checked"{% endif %} onclick="onAggregationClick(this, '{{aggregations[val.key].name}}', '{{ term.key }}');">
+              {{ term.key }} ({{ term.doc_count }})
+            </label>
+          </div>
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% if aggregations[val.key].type == 'terms' %}
+          <p class=""><a href="/category/{{ aggregations[val.key].name }}">See all</a></p>
+        {% endif %}
+        <div class="clearfix"></div>
+      </div>
+      {% endfor %}
+
+    </div>
+    <div class="col-md-10">
+
+      {% if settings.popular_queries %}
+      <ul class="subnav" style="">
+        <li>Random: </li>
+        {% for val in settings.popular_queries | split | shuffle | slice(0, 10) %}
+          <li><a href="/catalog?query={{ val }}">{{ val }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+
+      <div class="breadcrumbs">
+        {% for key, val in filters %}
+        {% for term in val %}
+        <span class="label label-default" style="margin-left: 5px;">{{ term }}
+          <span onclick="removeFilter('{{ key }}', '{{ term }}');" style="cursor: pointer" class="glyphicon glyphicon-remove"></span>
+        </span>
+        {% endfor %}
+        {% endfor %}
+
+        {% if (query) %}
+        <span class="label label-default" style="margin-left: 5px;">{{ query }}
+        </span>
+        {% endif %}
+
+        {% if (filter) %}
+        <span class="label label-default" style="margin-left: 5px;">{{ filter.val }}
+          <span onclick="removeFilter('{{ filter.key }}', '{{ filter.val }}');" style="cursor: pointer" class="glyphicon glyphicon-remove"></span>
+        </span>
+        {% endif %}
+      </div>
+
+      <div class="clearfix"></div>
+
+      {% if filter and not filter_original_value %}
+        <h3>Not configured yet</h3>
+        <p style="margin-top: 10px;">Nice URL's are not configured. You can do that in admin panel.
+        <br />Please ask <a target="_blank" href="https://github.com/itemsapi/starter/issues">https://github.com/itemsapi/starter/issues</a> for more informations</p>
+      {% else %}
+        <h3>List of items ({{pagination.total}})</h3>
+
+        <div class="items">
+          {% for item in items %}
+          <div class="col-xs-3 col-md-3" style="height: 350px;">
+            <a href="{% if item.permalink %}/item/{{ item.permalink }}{% else %}/id/{{ item.id }}{% endif %}" class="">
+              <img class="img-thumbnail" src="{% if item.image %}{{ item.image }}{% else %}{{ image }} {% endif %}" alt="{{ item.name }}">
+              <p>{{ item.name }}</p>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% if settings.hints %}
+          <p class="bg-success" style="padding: 15px;">To change this layout go to: <strong>/views/catalog.html.twig</strong></p>
+        {% endif %}
+
+        {% include "general/pagination.html.twig" ignore missing %}
+
+
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+{% block before_head_end %}
+<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/start/jquery-ui.css" />
+{% endblock %}
+
+{% block before_body_end %}
+{#<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>#}
+{% include "general/autocomplete.html.twig" ignore missing %}
+
+{% endblock %}

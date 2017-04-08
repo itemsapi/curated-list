@@ -1,0 +1,34 @@
+{
+  "name": "itemsjs-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itemsapi/itemsjs-server.git"
+  },
+  "author": "Matt Rzepa",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/itemsapi/itemsjs-server/issues"
+  },
+  "homepage": "https://github.com/itemsapi/itemsjs-server#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "itemsjs": "^1.0.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "nunjucks": "^3.0.0",
+    "request": "^2.81.0",
+    "slug": "^0.9.1",
+    "bootstrap": "^3.3.6",
+    "bower": "^1.8.0",
+    "urijs": "^1.18.10"
+  }
+}
