@@ -5,17 +5,19 @@ var itemsjs;
 
 const request = require('request');
 var PORT = process.env.PORT || 3000;
+var config = require('./config/index').get();
 
-/*const data_url = process.env.DATA_URL || 'https://raw.githubusercontent.com/itemsapi/itemsapi-example-data/master/items/movies-processed.json';
-console.log('Importing JSON data..');
-request(data_url, {json: true}, (err, res) => {
-  console.log('Imported data.');
-  //itemsjs = require('itemsjs')(res.body);
-  itemsjs = require('./../itemsjs')(res.body);
-})*/
+var itemsjs = require('itemsjs');
 
-//const data_url = ;
-itemsjs = require('./../itemsjs')(require('./imdb.json'));
+if (config.data.type === 'file') {
+  itemsjs = itemsjs(require(config.data.path), config.collection);
+} else if (config.data.type === 'url') {
+  request(config.data.url, {json: true}, (err, res) => {
+    itemsjs = itemsjs(res.body, config.collection);
+  })
+} else if (config.data.type === 'yaml') {
+  itemsjs = itemsjs(config.data.data, config.collection);
+}
 
 var bodyParser = require('body-parser');
 var nunenv = require('./src/nunenv')(app, 'views', {
@@ -63,7 +65,6 @@ app.get(['/', '/catalog'], function(req, res) {
       tags: []
     };
 
-    console.log(req.query);
     if (req.query.filters) {
       filters = JSON.parse(req.query.filters);
     }
@@ -77,12 +78,11 @@ app.get(['/', '/catalog'], function(req, res) {
     }
 
     var result = itemsjs.search({
-      per_page: req.query.per_page || 12,
+      per_page: req.query.per_page || config.collection.catalog.per_page || 12,
       page: req.query.page || 1,
       query: req.query.query,
       filters: filters
     });
-    //console.log(JSON.stringify(result, null, 2));
 
     return res.render('basic/catalog', {
       items: result.data.items,
