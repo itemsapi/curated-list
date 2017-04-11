@@ -7,15 +7,10 @@ var fs   = require('fs');
 
 nconf.use('memory');
 
-/*if (process.env.PORT) {
-  nconf.set('server:port', process.env.PORT);
-}*/
-
 // Get document, or throw exception on error
 try {
-  var config = yaml.safeLoad(fs.readFileSync(__dirname + '/config.yaml', 'utf8'));
-
-  config.collection.catalog = config.collection.catalog || {};
+  var config = yaml.safeLoad(fs.readFileSync(__dirname + '/../config.yaml', 'utf8'));
+  //config.collection.catalog = config.collection.catalog || {};
 
   nconf.defaults(config);
 } catch (e) {

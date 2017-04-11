@@ -1,0 +1,11 @@
+search:
+  aggregations:
+    tags: 
+      size: 15
+      title: Tags
+    actors: 
+      size: 10
+      title: Actors
+data:
+  type: url
+  url: https://storage.googleapis.com/imdb-list/imdb.json

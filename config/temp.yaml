@@ -1,0 +1,21 @@
+#url: https://raw.githubusercontent.com/itemsapi/itemsapi-example-data/master/items/movies-processed.json
+#type: file
+#path: './imdb.json' 
+#url: https://raw.githubusercontent.com/itemsapi/itemsapi-example-data/master/items/noblists.json
+#url: https://raw.githubusercontent.com/itemsapi/itemsapi-example-data/master/items/movies-processed.json
+#type: yaml
+#data: 
+#- name: Aerospike
+  #desc: Aerospike Database Server – flash-optimized, in-memory, nosql database
+  #url: http://www.aerospike.com/
+  #tags: 
+    #- flash-optimized
+    #- in-memory
+    #- nosql
+#- name: VoltDB
+  #desc:  VoltDB is a horizontally-scalable, in-memory SQL RDBMS designed for applications that have extremely high read and write throughput requirements.
+  #url: https://www.voltdb.com/
+  #tags: 
+    #- horizontally-scalable
+    #- extremely high-read
+    #- extremely high-write

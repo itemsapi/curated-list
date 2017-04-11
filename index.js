@@ -7,16 +7,17 @@ const request = require('request');
 var PORT = process.env.PORT || 3000;
 var config = require('./config/index').get();
 
+console.log(config);
 var itemsjs = require('itemsjs');
 
 if (config.data.type === 'file') {
-  itemsjs = itemsjs(require(config.data.path), config.collection);
+  itemsjs = itemsjs(require(config.data.path), config.search);
 } else if (config.data.type === 'url') {
   request(config.data.url, {json: true}, (err, res) => {
-    itemsjs = itemsjs(res.body, config.collection);
+    itemsjs = itemsjs(res.body, config.search);
   })
 } else if (config.data.type === 'yaml') {
-  itemsjs = itemsjs(config.data.data, config.collection);
+  itemsjs = itemsjs(config.data.data, config.search);
 }
 
 var bodyParser = require('body-parser');
@@ -78,7 +79,7 @@ app.get(['/', '/catalog'], function(req, res) {
     }
 
     var result = itemsjs.search({
-      per_page: req.query.per_page || config.collection.catalog.per_page || 12,
+      per_page: req.query.per_page || 12,
       page: req.query.page || 1,
       query: req.query.query,
       filters: filters

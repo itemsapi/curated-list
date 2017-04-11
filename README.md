@@ -16,10 +16,10 @@ git clone git@github.com:itemsapi/curated-list.git
 npm install
 ```
 
-Edit `config/config.yaml`:
+Edit `config.yaml`:
 
 ```yaml
-collection:
+search:
   aggregations:
     tags: 
       size: 15
@@ -28,13 +28,15 @@ collection:
       size: 10
       title: Actors
 data:
-  type: file
-  path: './imdb.json' 
+  type: url
+  url: https://storage.googleapis.com/imdb-list/imdb.json
 ```
 
 ```bash
 npm start
 ```
+
+![Curated list of movies](github/movies.jpg)
 
 ## Deployment
 
