@@ -4,15 +4,12 @@ Building nice curated list by editing yaml file
 
 ## Features
 
-- no db dependencies (search engine written in js)
 - faceted & full search
+- no db dependencies (search engine written in js)
 - website powered by editing simple yaml file
 - simple template engine (similar to twig)
 
 ## Getting started
-
-You can preview how it looks like although it's very early prototype.
-At the moment it shows only list of movies.
 
 ```bash
 git clone git@github.com:itemsapi/curated-list.git
@@ -40,8 +37,6 @@ npm start
 ```
 
 ## Deployment
-
-Once you run app on your localhost you can deploy that easily:
 
 ```bash
 # install now
