@@ -9,11 +9,11 @@ collection:
       size: 10
       title: Actors
 data:
-  type: file
-  path: './imdb.json' 
-  #type: url
+  #type: file
+  #path: './imdb.json' 
+  type: url
   #url: https://raw.githubusercontent.com/itemsapi/itemsapi-example-data/master/items/noblists.json
-  #url: https://raw.githubusercontent.com/itemsapi/itemsapi-example-data/master/items/movies-processed.json
+  url: https://raw.githubusercontent.com/itemsapi/itemsapi-example-data/master/items/movies-processed.json
   #type: yaml
   #data: 
     #- name: Aerospike
