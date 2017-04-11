@@ -36,6 +36,8 @@ data:
 npm start
 ```
 
+Result:
+
 ![Curated list of movies](github/movies.jpg)
 
 ## Deployment
