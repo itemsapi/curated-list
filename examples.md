@@ -67,20 +67,15 @@ search:
 data:
   values:
     - name: Aerospike
-
     - name: MongoDB
       tags:
         - json
         - aggregation
         - geospatial
-      type: 
-        - document
-
+      type: document
     - name: MySQL
-
     - name: SQLite
-      type: 
-        - rdbms
+      type: rdbms
       tags:
         - self-contained
         - serverless
