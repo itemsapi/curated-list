@@ -1,0 +1,27 @@
+{# foreach aggregations objects #}
+{% for val in (aggregations | sortObject('position', 'desc')) %}
+<div class="">
+  {# show title #}
+  <h5 style="margin-bottom: 5px;"><strong style="color: #337ab7;">{{ aggregations[val.key].title }}</strong></h5>
+  <ul class="browse-list list-unstyled long-list" style="margin-bottom: 0;">
+    {# list options #}
+    {% for term in aggregations[val.key].buckets %}
+    <li ng-repeat="bucket in agg.buckets">
+    <div class="checkbox block" style="margin-top: 0; margin-bottom: 0;">
+      <label>
+        {# show input and mark when checked #}
+        <input class="checkbox" type="checkbox" {% if (filter and filter.val == term.key and filter.key == val.key) or in_array(term.key, filters[val.key]) %}checked="checked"{% endif %} onclick="onAggregationClick(this, '{{aggregations[val.key].name}}', '{{ term.key }}');">
+        {{ term.key }} ({{ term.doc_count }})
+      </label>
+    </div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {# see all options - not supported yet #}
+  {% if aggregations[val.key].type == 'terms' %}
+    <p class=""><a href="/category/{{ aggregations[val.key].name }}">See all</a></p>
+  {% endif %}
+  <div class="clearfix"></div>
+</div>
+{% endfor %}

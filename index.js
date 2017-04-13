@@ -17,7 +17,7 @@ if (config.data.type === 'file') {
     itemsjs = itemsjs(res.body, config.search);
   })
 } else if (config.data.type === 'yaml') {
-  itemsjs = itemsjs(config.data.data, config.search);
+  itemsjs = itemsjs(config.data.values, config.search);
 }
 
 var bodyParser = require('body-parser');
@@ -36,9 +36,21 @@ app.use(bodyParser.urlencoded({ extended: false, limit: '5mb' }));
 
 app.set('view engine', 'html.twig');
 app.set('view cache', false);
-
 app.engine('html.twig', nunenv.render);
 
+
+/**
+ * middleware
+ */
+app.get('/*', function(req, res, next) {
+  // passing website config to template
+  res.locals.website = config.website;
+  next();
+});
+
+/**
+ * restful search
+ */
 app.get('/search', function (req, res) {
   let filters = req.query.filters ? JSON.parse(req.query.filters) : undefined;
 
@@ -51,55 +63,42 @@ app.get('/search', function (req, res) {
 })
 
 app.get(['/', '/catalog'], function(req, res) {
-  if (req.is_installation) {
-    //return next()
-    return res.redirect('/installation')
-  } else {
 
-    var page = parseInt(req.query.page, 10);
-    var is_ajax = req.query.is_ajax || req.xhr;
+  var page = parseInt(req.query.page, 10);
+  var is_ajax = req.query.is_ajax || req.xhr;
 
-    var sort = 'visits'
+  var filters = {};
 
-    //var filters = JSON.parse(req.query.filters || JSON.stringify({tags: ['dramat']}));
-    var filters = {
-      tags: []
-    };
-
-    if (req.query.filters) {
-      filters = JSON.parse(req.query.filters);
-    }
-
-    var query = {
-      sort: sort,
-      query: req.query.query,
-      page: page,
-      aggs: req.query.filters,
-      per_page: 16
-    }
-
-    var result = itemsjs.search({
-      per_page: req.query.per_page || 12,
-      page: req.query.page || 1,
-      query: req.query.query,
-      filters: filters
-    });
-
-    return res.render('basic/catalog', {
-      items: result.data.items,
-      pagination: result.pagination,
-      query: req.query.query,
-      page: page,
-      sort: sort,
-      is_ajax: is_ajax,
-      url: req.url,
-      aggregations: result.data.aggregations,
-      filters: filters,
-    });
+  if (req.query.filters) {
+    filters = JSON.parse(req.query.filters);
   }
+
+  var query = {
+    query: req.query.query,
+    page: page,
+    aggs: req.query.filters,
+    per_page: 16
+  }
+
+  var result = itemsjs.search({
+    per_page: req.query.per_page || 12,
+    page: req.query.page || 1,
+    query: req.query.query,
+    filters: filters
+  });
+
+  return res.render('basic/catalog', {
+    items: result.data.items,
+    pagination: result.pagination,
+    query: req.query.query,
+    page: page,
+    is_ajax: is_ajax,
+    url: req.url,
+    aggregations: result.data.aggregations,
+    filters: filters,
+  });
 })
 
 app.listen(PORT, function () {
-  console.log('Example app listening on port %s!', PORT);
-})
-
+  console.log('Your app listening on port %s!', PORT);
+});

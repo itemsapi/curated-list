@@ -28,72 +28,53 @@
   <div class="row">
 
     <div class="col-md-2" style="padding-left: 0;">
-
-      {% for val in (aggregations | sortObject('position', 'desc')) %}
-      <div class="">
-        <h5 style="margin-bottom: 5px;"><strong style="color: #337ab7;">{{ aggregations[val.key].title }}</strong></h5>
-        <ul class="browse-list list-unstyled long-list" style="margin-bottom: 0;">
-          {% for term in aggregations[val.key].buckets %}
-          <li ng-repeat="bucket in agg.buckets">
-          <div class="checkbox block" style="margin-top: 0; margin-bottom: 0;">
-            <label>
-              <input class="checkbox" type="checkbox" {% if (filter and filter.val == term.key and filter.key == val.key) or in_array(term.key, filters[val.key]) %}checked="checked"{% endif %} onclick="onAggregationClick(this, '{{aggregations[val.key].name}}', '{{ term.key }}');">
-              {{ term.key }} ({{ term.doc_count }})
-            </label>
-          </div>
-          </li>
-          {% endfor %}
-        </ul>
-
-        {% if aggregations[val.key].type == 'terms' %}
-          <p class=""><a href="/category/{{ aggregations[val.key].name }}">See all</a></p>
-        {% endif %}
-        <div class="clearfix"></div>
-      </div>
-      {% endfor %}
-
+      {% include "general/aggregations.html.twig" ignore missing %}
     </div>
     <div class="col-md-10">
 
-      {% if settings.popular_queries %}
-      <ul class="subnav" style="">
+      {#<ul class="subnav" style="">
         <li>Random: </li>
-        {% for val in settings.popular_queries | split | shuffle | slice(0, 10) %}
+        {% for val in 'auto, website, blog' | split | shuffle | slice(0, 10) %}
           <li><a href="/catalog?query={{ val }}">{{ val }}</a></li>
         {% endfor %}
-      </ul>
-      {% endif %}
+      </ul>#}
 
-
-      <div class="breadcrumbs">
-        {% for key, val in filters %}
-        {% for term in val %}
-        <span class="label label-default" style="margin-left: 5px;">{{ term }}
-          <span onclick="removeFilter('{{ key }}', '{{ term }}');" style="cursor: pointer" class="glyphicon glyphicon-remove"></span>
-        </span>
-        {% endfor %}
-        {% endfor %}
-
-        {% if (query) %}
-        <span class="label label-default" style="margin-left: 5px;">{{ query }}
-        </span>
-        {% endif %}
-
-        {% if (filter) %}
-        <span class="label label-default" style="margin-left: 5px;">{{ filter.val }}
-          <span onclick="removeFilter('{{ filter.key }}', '{{ filter.val }}');" style="cursor: pointer" class="glyphicon glyphicon-remove"></span>
-        </span>
-        {% endif %}
-      </div>
+      {% include "general/breadcrumbs.html.twig" ignore missing %}
 
       <div class="clearfix"></div>
 
-      {% if filter and not filter_original_value %}
-        <h3>Not configured yet</h3>
-        <p style="margin-top: 10px;">Nice URL's are not configured. You can do that in admin panel.
-        <br />Please ask <a target="_blank" href="https://github.com/itemsapi/starter/issues">https://github.com/itemsapi/starter/issues</a> for more informations</p>
+      <h3>List of items ({{pagination.total}})</h3>
+
+
+      {% if website.layout.name === 'table' %}
+
+        <table class="table table-striped">
+          <tbody>
+            {% for item in items %}
+            <tr>
+              {% if website.layout.columns %}
+              {% for column in website.layout.columns %}
+                <td>
+                  {% if column == 'image' %}
+                  <img style="width: 80px;" src="{{ item.image }}" alt="{{ item.name }}" />
+                  {% else %}
+                  <td>
+                    {{ item[column] }}
+                  </td>
+                  {% endif %}
+                </td>
+              {% endfor %}
+              {% else %}
+              <td>
+                {{ item.name }}
+              </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
       {% else %}
-        <h3>List of items ({{pagination.total}})</h3>
 
         <div class="items">
           {% for item in items %}
@@ -103,31 +84,20 @@
           </div>
           {% endfor %}
         </div>
-
-        <div class="clearfix"></div>
-
-        {% if settings.hints %}
-          <p class="bg-success" style="padding: 15px;">To change this layout go to: <strong>/views/catalog.html.twig</strong></p>
-        {% endif %}
-
-        {% include "general/pagination.html.twig" ignore missing %}
-
-
       {% endif %}
+
+      <div class="clearfix"></div>
+
+      {% include "general/pagination.html.twig" ignore missing %}
+
     </div>
   </div>
 </div>
 {% endblock %}
-
-
-
 
 {% block before_head_end %}
 <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/start/jquery-ui.css" />
 {% endblock %}
 
 {% block before_body_end %}
-{#<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>#}
-{% include "general/autocomplete.html.twig" ignore missing %}
-
 {% endblock %}

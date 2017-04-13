@@ -40,6 +40,8 @@ Result:
 
 ![Curated list of movies](github/movies.jpg)
 
+[See another example](examples.md)
+
 ## Deployment
 
 ```bash
@@ -48,6 +50,11 @@ npm install now -g
 # deploy app with now 
 now
 ```
+
+## Technologies
+
+- [Express](https://github.com/expressjs/express) (minimalist web framework for Node.js)
+- [ItemsJS](https://github.com/itemsapi/itemsjs) (full text, faceted search engine in javascript)
 
 ## Contributions
 

@@ -1,0 +1,20 @@
+<div class="breadcrumbs">
+  {% for key, val in filters %}
+  {% for term in val %}
+  <span class="label label-default" style="margin-left: 5px;">{{ term }}
+    <span onclick="removeFilter('{{ key }}', '{{ term }}');" style="cursor: pointer" class="glyphicon glyphicon-remove"></span>
+  </span>
+  {% endfor %}
+  {% endfor %}
+
+  {% if (query) %}
+  <span class="label label-default" style="margin-left: 5px;">{{ query }}
+  </span>
+  {% endif %}
+
+  {% if (filter) %}
+  <span class="label label-default" style="margin-left: 5px;">{{ filter.val }}
+    <span onclick="removeFilter('{{ filter.key }}', '{{ filter.val }}');" style="cursor: pointer" class="glyphicon glyphicon-remove"></span>
+  </span>
+  {% endif %}
+</div>
