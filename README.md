@@ -40,7 +40,7 @@ Result:
 
 ![Curated list of movies](github/movies.jpg)
 
-[See another example](examples.md)
+[See another examples](examples.md)
 
 ## Deployment
 

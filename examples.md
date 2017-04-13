@@ -8,6 +8,14 @@ npm install
 Edit `config.yaml`:
 
 ```yaml
+website:
+  title: List of movies
+  layout: 
+    name: table
+    columns: 
+      - image
+      - name
+      - tags
 search:
   aggregations:
     tags: 
@@ -27,4 +35,4 @@ npm start
 
 Result:
 
-![Curated list of movies](github/movies.jpg)
+![Curated list of movies](github/movies-table.jpg)
