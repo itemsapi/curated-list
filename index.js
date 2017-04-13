@@ -16,7 +16,7 @@ if (config.data.type === 'file') {
   request(config.data.url, {json: true}, (err, res) => {
     itemsjs = itemsjs(res.body, config.search);
   })
-} else if (config.data.type === 'yaml') {
+} else if (config.data.values) {
   itemsjs = itemsjs(config.data.values, config.search);
 }
 
