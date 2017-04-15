@@ -1,12 +1,87 @@
+nunjucks.configure({ autoescape: true });
+
+var render = nunjucks.renderString('Hello {{ username }}', { username: 'James' });
+var env = nunjucks.configure('views', { autoescape: true });
+env.addFilter('sortObject', function(array, field, order) {
+  return _.chain(array)
+  .cloneDeep()
+  .map(function(val, key) {
+    val.key = key
+    return val
+  })
+  .sortBy([function(o) {
+    if (order === 'asc') {
+      return o[field]
+    }
+    return -o[field]
+  }])
+  .value();
+})
+env.addGlobal('in_array', function(element, array) {
+  array = array || [];
+  return array.indexOf(element) !== -1;
+})
+env.addFilter('ceil', function(str) {
+  return Math.ceil(str)
+})
+
+console.log(items);
+
+itemsjs = itemsjs(items, search_config);
+console.log(itemsjs);
+
+
 var requestCatalog = function(data) {
-  data = _.extend({
+
+
+  History.pushState(null, document.title, decodeURIComponent(data.url));
+
+  console.log('queries');
+  var queries = URI(data.url).search(true)
+  if (queries.filters) {
+    queries.filters = JSON.parse(queries.filters);
+  }
+
+  console.log(queries);
+
+  var filters = {
+    tags:['json']
+  }
+
+  var filters = queries.filters;
+
+  var params = {
+    filters: filters
+  }
+
+  console.log(data);
+  var result = itemsjs.search(queries);
+
+  var render = nunjucks.render('basic/catalog.html.twig', {
+    items: result.data.items,
+    website: website_config,
+    pagination: result.pagination,
+    //all_items: JSON.stringify(config.data.values),
+    //search_config: JSON.stringify(config.search),
+    //query: req.query.query,
+    page: 1,
+    is_ajax: true,
+    //url: req.url,
+    aggregations: result.data.aggregations,
+    filters: filters,
+
+  });
+  //console.log(render);
+
+  jQuery("#content").html(render);
+
+  /*data = _.extend({
     success: function(result, status) {
       jQuery("#content").html(result);
-      History.pushState(null, document.title, decodeURIComponent(data.url));
     },
     dataType: 'html'
   }, data);
-  jQuery.ajax(data);
+  jQuery.ajax(data);*/
 }
 
 

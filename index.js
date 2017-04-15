@@ -7,7 +7,7 @@ const request = require('request');
 var PORT = process.env.PORT || 3000;
 var config = require('./config/index').get();
 
-console.log(config);
+//console.log(config);
 var itemsjs = require('itemsjs');
 
 if (config.data.type === 'file') {
@@ -30,6 +30,7 @@ var nunenv = require('./src/nunenv')(app, 'views', {
 app.use('/bootstrap', express.static('node_modules/bootstrap'));
 app.use('/assets', express.static('assets'));
 app.use('/libs', express.static('bower_components'));
+app.use('/views', express.static('views'));
 
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({ extended: false, limit: '5mb' }));
@@ -87,9 +88,16 @@ app.get(['/', '/catalog'], function(req, res) {
     filters: filters
   });
 
+  //res.locals.all_items = JSON.stringify(config.data.values);
+  //res.locals.all_items = (config.data.values);
+  //res.locals.search_config = JSON.stringify(config.search);
+
   return res.render('basic/catalog', {
     items: result.data.items,
     pagination: result.pagination,
+    all_items: JSON.stringify(config.data.values),
+    website_config: JSON.stringify(config.website),
+    search_config: JSON.stringify(config.search),
     query: req.query.query,
     page: page,
     is_ajax: is_ajax,

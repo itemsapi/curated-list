@@ -62,14 +62,33 @@
 
 </div>
 
+<script>
+
+{% if all_items %}
+var items = {{ all_items | safe }};
+var search_config = {{ search_config | safe }};
+var website_config = {{ website_config | safe }};
+{% endif %}
+
+</script>
+
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+<script src="/assets/itemsjs.js"></script>
+<script src="/libs/nunjucks/browser/nunjucks.min.js"></script>
 <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/libs/lodash/dist/lodash.min.js"></script>
 <script src="/libs/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 <script src="/libs/urijs/src/URI.min.js"></script>
 <script src="/assets/script.js"></script>
 <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>
+
+<script>
+
+
+{#console.log(data);#}
+</script>
+
 
 {% block before_body_end %}
 {% endblock %}
