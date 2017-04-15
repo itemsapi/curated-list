@@ -32,5 +32,10 @@
     "request": "^2.81.0",
     "slug": "^0.9.1",
     "urijs": "^1.18.10"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-nunjucks": "^3.0.0"
   }
 }

@@ -74,8 +74,12 @@ var website_config = {{ website_config | safe }};
 
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
-<script src="/assets/itemsjs.js"></script>
-<script src="/libs/nunjucks/browser/nunjucks.min.js"></script>
+{#<script src="/libs/itemsjs/dist/itemsjs.js"></script>#}
+<script src="/libs/itemsjs/dist/itemsjs.js"></script>
+{#<script src="/libs/nunjucks/browser/nunjucks.min.js"></script>#}
+<script src="/libs/nunjucks/browser/nunjucks-slim.js"></script>
+{#<script src="/views/catalog.html.js"></script>#}
+<script src="/assets/templates.js"></script>
 <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/libs/lodash/dist/lodash.min.js"></script>
 <script src="/libs/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>

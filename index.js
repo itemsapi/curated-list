@@ -92,7 +92,7 @@ app.get(['/', '/catalog'], function(req, res) {
   //res.locals.all_items = (config.data.values);
   //res.locals.search_config = JSON.stringify(config.search);
 
-  return res.render('basic/catalog', {
+  return res.render('catalog', {
     items: result.data.items,
     pagination: result.pagination,
     all_items: JSON.stringify(config.data.values),

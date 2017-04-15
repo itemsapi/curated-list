@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding-left: 0;">
+      <div id="custom-search-input">
+        <form action="/catalog" method="GET">
+          <div class="input-group col-md-12">
+            <input type="text" id="main_query" class="form-control input-lg" name="query" value="{{ query }}" placeholder="Search items.." />
+            <span class="input-group-btn">
+              <button class="btn btn-info btn-lg" type="button">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-2" style="padding-left: 0;">
+      {% include "views/aggregations.html.twig" ignore missing %}
+    </div>
+    <div class="col-md-10">
+
+      {#<ul class="subnav" style="">
+        <li>Random: </li>
+        {% for val in 'auto, website, blog' | split | shuffle | slice(0, 10) %}
+          <li><a href="/catalog?query={{ val }}">{{ val }}</a></li>
+        {% endfor %}
+      </ul>#}
+
+      {% include "views/breadcrumbs.html.twig" %}
+
+      <div class="clearfix"></div>
+
+      <h3>List of items ({{pagination.total}})</h3>
+
+
+      {% if website.layout.name === 'table' %}
+
+        <table class="table table-striped">
+          <tbody>
+            {% for item in items %}
+            <tr>
+              {% if website.layout.columns %}
+              {% for column in website.layout.columns %}
+                <td>
+                  {% if column == 'image' %}
+                  <img style="width: 80px;" src="{{ item.image }}" alt="{{ item.name }}" />
+                  {% else %}
+                  <td>
+                    {{ item[column] }}
+                  </td>
+                  {% endif %}
+                </td>
+              {% endfor %}
+              {% else %}
+              <td>
+                {{ item.name }}
+              </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      {% else %}
+
+        <div class="items">
+          {% for item in items %}
+          <div class="col-xs-3 col-md-3" style="height: 350px;">
+              <img class="img-thumbnail" src="{% if item.image %}{{ item.image }}{% else %}{{ image }} {% endif %}" alt="{{ item.name }}">
+              <p>{{ item.name }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="clearfix"></div>
+
+      {% include "views/pagination.html.twig" %}
+
+    </div>
+  </div>
+</div>

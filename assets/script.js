@@ -1,29 +1,52 @@
-nunjucks.configure({ autoescape: true });
-
-var render = nunjucks.renderString('Hello {{ username }}', { username: 'James' });
-var env = nunjucks.configure('views', { autoescape: true });
-env.addFilter('sortObject', function(array, field, order) {
-  return _.chain(array)
-  .cloneDeep()
-  .map(function(val, key) {
-    val.key = key
-    return val
+//var render = nunjucks.renderString('Hello {{ username }}', { username: 'James' });
+//var env = nunjucks.configure('views', { autoescape: true });
+//var env = nunjucks.configure({ autoescape: true });
+//var env = new nunjucks.Environment();
+//var loader = new nunjucks.PrecompiledLoader(templates);
+//var env = new nunjucks.Environment([loader]);
+//var env = new nunjucks.Environment(new nunjucks.WebLoader('views'))
+var filters = function(env) {
+  env.addFilter('sortObject', function(array, field, order) {
+    return _.chain(array)
+    .cloneDeep()
+    .map(function(val, key) {
+      val.key = key
+      return val
+    })
+    .sortBy([function(o) {
+      if (order === 'asc') {
+        return o[field]
+      }
+      return -o[field]
+    }])
+    .value();
   })
-  .sortBy([function(o) {
-    if (order === 'asc') {
-      return o[field]
-    }
-    return -o[field]
-  }])
-  .value();
-})
-env.addGlobal('in_array', function(element, array) {
-  array = array || [];
-  return array.indexOf(element) !== -1;
-})
-env.addFilter('ceil', function(str) {
-  return Math.ceil(str)
-})
+  env.addGlobal('in_array', function(element, array) {
+    array = array || [];
+    return array.indexOf(element) !== -1;
+  })
+  env.addFilter('ceil', function(str) {
+    return Math.ceil(str)
+  })
+}
+var env = nunjucks.configure({ autoescape: true });
+//var env = nunjucks.configure('views', { autoescape: true });
+
+
+
+filters(env);
+
+try {
+  //var render = nunjucks.render('views/catalog_ajax.html.twig', {})
+  var render = env.render('views/catalog_ajax.html.twig', {})
+  //var render = env.render('views/view.html.twig', {})
+  //var render = env.render('views/basic/catalog.html.twig', {})
+  //var render = nunjucks.render('views/catalog.html.twig', {})
+  console.log('rend');
+  console.log(render);
+} catch (error) {
+  console.log(error);
+}
 
 console.log(items);
 
@@ -57,7 +80,8 @@ var requestCatalog = function(data) {
   console.log(data);
   var result = itemsjs.search(queries);
 
-  var render = nunjucks.render('basic/catalog.html.twig', {
+  //var render = nunjucks.render('basic/catalog.html.twig', {
+  var render = env.render('views/catalog_ajax.html.twig', {
     items: result.data.items,
     website: website_config,
     pagination: result.pagination,
