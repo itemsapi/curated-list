@@ -28,30 +28,35 @@ var filters = function(env) {
   env.addFilter('ceil', function(str) {
     return Math.ceil(str)
   })
+  env.addFilter('build', function(str, data) {
+    var url = new URI(str || '');
+    var search = url.search(true);
+    url.search(_.extend(search, data));
+    return url.normalizeQuery().toString();
+  })
 }
 var env = nunjucks.configure({ autoescape: true });
 //var env = nunjucks.configure('views', { autoescape: true });
 
-
-
+// temporary
 filters(env);
 
-try {
+/*try {
   //var render = nunjucks.render('views/catalog_ajax.html.twig', {})
   var render = env.render('views/catalog_ajax.html.twig', {})
   //var render = env.render('views/view.html.twig', {})
   //var render = env.render('views/basic/catalog.html.twig', {})
   //var render = nunjucks.render('views/catalog.html.twig', {})
-  console.log('rend');
-  console.log(render);
+  //console.log('rend');
+  //console.log(render);
 } catch (error) {
   console.log(error);
-}
+}*/
 
-console.log(items);
+//console.log(items);
 
 itemsjs = itemsjs(items, search_config);
-console.log(itemsjs);
+//console.log(itemsjs);
 
 
 var requestCatalog = function(data) {
@@ -65,7 +70,7 @@ var requestCatalog = function(data) {
     queries.filters = JSON.parse(queries.filters);
   }
 
-  console.log(queries);
+  //console.log(queries);
 
   var filters = {
     tags:['json']
@@ -79,6 +84,9 @@ var requestCatalog = function(data) {
 
   console.log(data);
   var result = itemsjs.search(queries);
+
+  console.log('result');
+  console.log(result);
 
   //var render = nunjucks.render('basic/catalog.html.twig', {
   var render = env.render('views/catalog_ajax.html.twig', {

@@ -9,14 +9,18 @@ var config = require('./config/index').get();
 
 //console.log(config);
 var itemsjs = require('itemsjs');
+var all_items
 
 if (config.data.type === 'file') {
+  all_items = require(config.data.path);
   itemsjs = itemsjs(require(config.data.path), config.search);
 } else if (config.data.type === 'url') {
   request(config.data.url, {json: true}, (err, res) => {
+    all_items = res.body;
     itemsjs = itemsjs(res.body, config.search);
   })
 } else if (config.data.values) {
+  all_items = config.data.values;
   itemsjs = itemsjs(config.data.values, config.search);
 }
 
@@ -88,14 +92,10 @@ app.get(['/', '/catalog'], function(req, res) {
     filters: filters
   });
 
-  //res.locals.all_items = JSON.stringify(config.data.values);
-  //res.locals.all_items = (config.data.values);
-  //res.locals.search_config = JSON.stringify(config.search);
-
   return res.render('catalog', {
     items: result.data.items,
     pagination: result.pagination,
-    all_items: JSON.stringify(config.data.values),
+    all_items: JSON.stringify(all_items),
     website_config: JSON.stringify(config.website),
     search_config: JSON.stringify(config.search),
     query: req.query.query,
