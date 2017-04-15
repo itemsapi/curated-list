@@ -1,5 +1,5 @@
 {# foreach aggregations objects #}
-{% for val in (aggregations | sortObject('position', 'desc')) %}
+{% for val in (aggregations | sortObject('position', 'asc')) %}
 <div class="">
   {# show title #}
   <h5 style="margin-bottom: 5px;"><strong style="color: #337ab7;">{{ aggregations[val.key].title }}</strong></h5>
