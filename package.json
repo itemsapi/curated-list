@@ -20,7 +20,6 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
-    "bootstrap": "^3.3.6",
     "bower": "^1.8.0",
     "express": "^4.15.2",
     "itemsjs": "^1.0.6",
@@ -35,6 +34,10 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-minify": "0.0.15",
     "gulp-nodemon": "^2.2.1",
     "gulp-nunjucks": "^3.0.0"
   }

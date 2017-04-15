@@ -15,12 +15,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <title>Curated list</title>
-<link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-{#<link href="assets/jumbotron.css" rel="stylesheet">#}
+<link href="/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/assets/navbar.css" rel="stylesheet">
 <link href="/assets/prism.css" rel="stylesheet" />
 <link href="/assets/custom.css" rel="stylesheet" />
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
 {% block before_head_end %}
 {% endblock %}
@@ -51,6 +50,27 @@
 
 <div class="container">
 
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding-left: 0;">
+      <div id="custom-search-input">
+        <form action="/catalog" method="GET">
+          <div class="input-group col-md-12">
+            <input type="text" id="main_query" class="form-control input-lg" name="query" value="{{ query }}" placeholder="Search items.." />
+            <span class="input-group-btn">
+              <button class="btn btn-info btn-lg" type="button">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <div id="content">
     {% block content %}
     {% endblock %}
@@ -72,27 +92,19 @@ var website_config = {{ website_config | safe }};
 
 </script>
 
-
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
-{#<script src="/libs/itemsjs/dist/itemsjs.js"></script>#}
+{#<script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>#}
+<script src="/libs/jquery/dist/jquery.min.js"></script>
 <script src="/libs/itemsjs/dist/itemsjs.js"></script>
 {#<script src="/libs/nunjucks/browser/nunjucks.min.js"></script>#}
 <script src="/libs/nunjucks/browser/nunjucks-slim.js"></script>
-{#<script src="/views/catalog.html.js"></script>#}
 <script src="/assets/templates.js"></script>
 <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/libs/lodash/dist/lodash.min.js"></script>
 <script src="/libs/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 <script src="/libs/urijs/src/URI.min.js"></script>
 <script src="/assets/script.js"></script>
-<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>
-
-<script>
-
-
-{#console.log(data);#}
-</script>
-
+{#<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>#}
+<script src="/libs/jquery-ui/jquery-ui.min.js"></script>
 
 {% block before_body_end %}
 {% endblock %}

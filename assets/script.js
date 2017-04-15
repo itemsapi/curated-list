@@ -41,23 +41,7 @@ var env = nunjucks.configure({ autoescape: true });
 // temporary
 filters(env);
 
-/*try {
-  //var render = nunjucks.render('views/catalog_ajax.html.twig', {})
-  var render = env.render('views/catalog_ajax.html.twig', {})
-  //var render = env.render('views/view.html.twig', {})
-  //var render = env.render('views/basic/catalog.html.twig', {})
-  //var render = nunjucks.render('views/catalog.html.twig', {})
-  //console.log('rend');
-  //console.log(render);
-} catch (error) {
-  console.log(error);
-}*/
-
-//console.log(items);
-
 itemsjs = itemsjs(items, search_config);
-//console.log(itemsjs);
-
 
 var requestCatalog = function(data) {
 
@@ -193,4 +177,25 @@ jQuery(document).ready(function() {
     History.back()
     event.preventDefault()
   })
+
+  $('#main_query').keyup(function() {
+    //alert( "Handler for .keyup() called." );
+    console.log($(this).val());
+    var uri = URI();
+    console.log(uri);
+
+    uri.removeSearch('query');
+    uri.addSearch('query', $(this).val());
+
+    /*if (!$(this).val()) {
+
+    }*/
+    //var queries = URI().search(true)
+    //console.log(queries);
+    //var url = new URI(str || '');
+    //console.log();
+    requestCatalog({
+      url: uri.href()
+    });
+  });
 })
