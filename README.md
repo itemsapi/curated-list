@@ -1,6 +1,6 @@
 # Curated list
 
-Static website generator for nice curated list
+Build nice client-side curated list by editing yaml file
 
 ## Features
 
@@ -24,6 +24,9 @@ search:
     tags: 
       size: 15
       title: Tags
+    genres: 
+      size: 10
+      title: Genres
     actors: 
       size: 10
       title: Actors
@@ -43,10 +46,16 @@ Result:
 
 [See another examples](examples.md)
 
+## Short guide
+
+After running `npm run build` all html, css and js files are generated in `docs` folder. 
+You can use `docs` files for github pages, netlify or nginx deployment. 
+
 ## Deployment
 
 - https://www.netlify.com/ (incredibly easy and free hosting for open source)
 - https://pages.github.com/ (free and intuitive hosting for static websites)
+- https://zeit.co/now (realtime deployments from cli)
 
 ```bash
 # install now
@@ -54,7 +63,6 @@ npm install now -g
 # deploy app with now 
 now
 ```
-
 
 ## Technologies
 
