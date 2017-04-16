@@ -29,7 +29,7 @@
     "itemsjs": "^1.0.6",
     "jquery-ui": "^1.12.1",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.2.1",
+    "jquery": "jquery#^1.9.1",
     "bootstrap": "^3.3.7"
   }
 }
