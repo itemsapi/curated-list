@@ -1,6 +1,7 @@
 # Curated list
 
-Build nice client-side curated list by editing yaml file
+Build nice client-side curated list by editing yaml file.
+See demo for movies - https://imdb.netlify.com/.
 
 ## Features
 
