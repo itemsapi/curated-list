@@ -7,7 +7,7 @@
     "start": "node index.js",
     "build": "gulp build",
     "watch": "gulp watch",
-    "postinstall": "./node_modules/.bin/bower cache clean --allow-root && ./node_modules/.bin/bower install --allow-root"
+    "postinstall": "bower cache clean --allow-root && bower install --allow-root"
   },
   "repository": {
     "type": "git",

@@ -130,5 +130,6 @@ gulp.task('watch', () => {
   //gulp.watch('views/**/*.html.twig', ['templates.js']);
   //gulp.watch('assets/**/*.js', ['js']);
   gulp.watch(['assets/**/*.js', 'views/**/*.html.twig'], ['js']);
+  gulp.watch(['config.yaml'], ['build']);
 });
 
