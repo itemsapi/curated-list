@@ -20,13 +20,21 @@ npm install
 Edit `config.yaml`:
 
 ```yaml
+website:
+  title: List of movies
+  layout: 
+    name: table
+    columns: 
+      - image
+      - name
+      - tags
 search:
   aggregations:
     tags: 
       size: 15
       title: Tags
     genres: 
-      size: 10
+      size: 15
       title: Genres
     actors: 
       size: 10
@@ -43,7 +51,8 @@ npm start
 
 Result:
 
-![Curated list of movies](github/movies.jpg)
+![](https://media.giphy.com/media/xUPGceuCLz8yFbu4Ew/giphy.gif)
+[//]: # "![Curated list of movies](github/movies.jpg)"
 
 [See another examples](examples.md)
 
