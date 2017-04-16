@@ -20,4 +20,5 @@ try {
 exports.get = function() {
   return nconf.get();
 }
+
 module.exports = exports;

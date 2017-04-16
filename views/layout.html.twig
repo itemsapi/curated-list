@@ -15,11 +15,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <title>Curated list</title>
-<link href="/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+{#<link href="/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/assets/navbar.css" rel="stylesheet">
 <link href="/assets/prism.css" rel="stylesheet" />
-<link href="/assets/custom.css" rel="stylesheet" />
-<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/custom.css" rel="stylesheet" />#}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="/css/all.css" rel="stylesheet">
+{#<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">#}
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 {% block before_head_end %}
 {% endblock %}
@@ -92,19 +95,23 @@ var website_config = {{ website_config | safe }};
 
 </script>
 
+{% if 0 %}
 {#<script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>#}
 <script src="/libs/jquery/dist/jquery.min.js"></script>
 <script src="/libs/itemsjs/dist/itemsjs.js"></script>
 {#<script src="/libs/nunjucks/browser/nunjucks.min.js"></script>#}
 <script src="/libs/nunjucks/browser/nunjucks-slim.js"></script>
 <script src="/assets/templates.js"></script>
-<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/libs/lodash/dist/lodash.min.js"></script>
 <script src="/libs/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
 <script src="/libs/urijs/src/URI.min.js"></script>
 <script src="/assets/script.js"></script>
 {#<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>#}
 <script src="/libs/jquery-ui/jquery-ui.min.js"></script>
+{% else %}
+<script src="/js/all.js"></script>
+{% endif %}
 
 {% block before_body_end %}
 {% endblock %}
