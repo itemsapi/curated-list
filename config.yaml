@@ -1,3 +1,12 @@
+website:
+  title: List of movies
+  repo: https://github.com/cigolpl/movies
+  layout: 
+    name: table
+    columns: 
+      - image
+      - name
+      - tags
 search:
   aggregations:
     tags: 
