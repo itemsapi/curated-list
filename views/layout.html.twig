@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="dns-prefetch" href="//ajax.googleapis.com"/>
+<link rel="dns-prefetch" href="//apis.google.com"/>
+<link rel="dns-prefetch" href="//facebook.com"/>
+<link rel="dns-prefetch" href="//maps.google.com"/>
+<link rel="dns-prefetch" href="//maps.gstatic.com"/>
+<link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com/"/>
+<link rel="dns-prefetch" href="//ssl.google-analytics.com"/>
+<link rel="dns-prefetch" href="//www.google-analytics.com"/>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<title>Curated list</title>
+{#<link href="/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/navbar.css" rel="stylesheet">
+<link href="/assets/prism.css" rel="stylesheet" />
+<link href="/assets/custom.css" rel="stylesheet" />#}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="/css/all.css" rel="stylesheet">
+{#<link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">#}
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+{% block before_head_end %}
+{% endblock %}
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">{{ website.title | default('Curated list') }}</a>
+    </div>
+
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container">
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding-left: 0;">
+      <div id="custom-search-input">
+        <form action="/catalog" method="GET">
+          <div class="input-group col-md-12">
+            <input type="text" id="main_query" class="form-control input-lg" name="query" value="{{ query }}" placeholder="Search items.." />
+            <span class="input-group-btn">
+              <button class="btn btn-info btn-lg" type="button">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <footer class="text-center">
+    <p>System powered with <a href="https://github.com/itemsapi/curated-list" target="_blank">curated list</a>. {% if website.repo %}<a href="{{ website.repo }}" target="_blank">Source code & data.</a>{% endif %}</p>
+  </footer>
+
+</div>
+
+<script>
+
+{% if all_items %}
+var items = {{ all_items | safe }};
+var search_config = {{ search_config | safe }};
+var website_config = {{ website_config | safe }};
+{% endif %}
+
+</script>
+
+{% if 0 %}
+{#<script src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>#}
+<script src="/libs/jquery/dist/jquery.min.js"></script>
+<script src="/libs/itemsjs/dist/itemsjs.js"></script>
+{#<script src="/libs/nunjucks/browser/nunjucks.min.js"></script>#}
+<script src="/libs/nunjucks/browser/nunjucks-slim.js"></script>
+<script src="/assets/templates.js"></script>
+<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/libs/lodash/dist/lodash.min.js"></script>
+<script src="/libs/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
+<script src="/libs/urijs/src/URI.min.js"></script>
+<script src="/assets/script.js"></script>
+{#<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>#}
+<script src="/libs/jquery-ui/jquery-ui.min.js"></script>
+{% else %}
+<script src="/js/all.js"></script>
+{#<script src="/js/templates.js"></script>#}
+{% endif %}
+
+{% block before_body_end %}
+{% endblock %}
+
+</body>
+</html>

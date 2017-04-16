@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "./node_modules/.bin/bower cache clean --allow-root && ./node_modules/.bin/bower install --allow-root"
+    "build": "gulp build",
+    "watch": "gulp watch",
+    "postinstall": "bower cache clean --allow-root && bower install --allow-root"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,6 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
-    "bootstrap": "^3.3.6",
     "bower": "^1.8.0",
     "express": "^4.15.2",
     "itemsjs": "^1.0.6",
@@ -32,5 +33,20 @@
     "request": "^2.81.0",
     "slug": "^0.9.1",
     "urijs": "^1.18.10"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-data": "^1.2.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-minify": "0.0.15",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-nunjucks": "^3.0.0",
+    "gulp-nunjucks-render": "^2.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sequence": "^0.4.6",
+    "gulp-shell": "^0.6.3"
   }
 }

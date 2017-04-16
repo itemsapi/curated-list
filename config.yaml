@@ -1,3 +1,12 @@
+website:
+  title: List of movies
+  repo: https://github.com/cigolpl/movies
+  layout: 
+    name: table
+    columns: 
+      - image
+      - name
+      - tags
 search:
   aggregations:
     tags: 
@@ -7,5 +16,7 @@ search:
       size: 10
       title: Actors
 data:
-  type: url
-  url: https://storage.googleapis.com/imdb-list/imdb.json
+  type: file
+  path: imdb.json
+  #type: url
+  #url: https://storage.googleapis.com/imdb-list/imdb.json

@@ -1,34 +1,16 @@
 {% if is_ajax == false %}
-  {% extends "basic/layout.html.twig" %}
+  {% extends "views/layout.html.twig" %}
   {% block title %}{% endblock %}
   {% block description %}{% endblock %}
 {% endif %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-12" style="padding-left: 0;">
-      <div id="custom-search-input">
-        <form action="/catalog" method="GET">
-          <div class="input-group col-md-12">
-            <input type="text" id="main_query" class="form-control input-lg" name="query" value="{{ query }}" placeholder="Search items.." />
-            <span class="input-group-btn">
-              <button class="btn btn-info btn-lg" type="button">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </span>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="container">
   <div class="row">
 
     <div class="col-md-2" style="padding-left: 0;">
-      {% include "general/aggregations.html.twig" ignore missing %}
+      {% include "views/aggregations.html.twig" %}
     </div>
     <div class="col-md-10">
 
@@ -39,7 +21,7 @@
         {% endfor %}
       </ul>#}
 
-      {% include "general/breadcrumbs.html.twig" ignore missing %}
+      {% include "views/breadcrumbs.html.twig" %}
 
       <div class="clearfix"></div>
 
@@ -88,7 +70,7 @@
 
       <div class="clearfix"></div>
 
-      {% include "general/pagination.html.twig" ignore missing %}
+      {% include "views/pagination.html.twig" %}
 
     </div>
   </div>

@@ -1,6 +1,6 @@
 # Curated list
 
-Building nice curated list by editing yaml file
+Static website generator for nice curated list
 
 ## Features
 
@@ -33,6 +33,7 @@ data:
 ```
 
 ```bash
+npm run build
 npm start
 ```
 
@@ -44,12 +45,16 @@ Result:
 
 ## Deployment
 
+- https://www.netlify.com/ (incredibly easy and free hosting for open source)
+- https://pages.github.com/ (free and intuitive hosting for static websites)
+
 ```bash
 # install now
 npm install now -g
 # deploy app with now 
 now
 ```
+
 
 ## Technologies
 

@@ -1,12 +1,79 @@
+//var render = nunjucks.renderString('Hello {{ username }}', { username: 'James' });
+//var env = nunjucks.configure('views', { autoescape: true });
+//var env = nunjucks.configure({ autoescape: true });
+//var env = new nunjucks.Environment();
+//var loader = new nunjucks.PrecompiledLoader(templates);
+//var env = new nunjucks.Environment([loader]);
+//var env = new nunjucks.Environment(new nunjucks.WebLoader('views'))
+var filters = function(env) {
+  env.addFilter('sortObject', function(array, field, order) {
+    return _.chain(array)
+    .cloneDeep()
+    .map(function(val, key) {
+      val.key = key
+      return val
+    })
+    .sortBy([function(o) {
+      if (order === 'asc') {
+        return o[field]
+      }
+      return -o[field]
+    }])
+    .value();
+  })
+  env.addGlobal('in_array', function(element, array) {
+    array = array || [];
+    return array.indexOf(element) !== -1;
+  })
+  env.addFilter('ceil', function(str) {
+    return Math.ceil(str)
+  })
+  env.addFilter('build', function(str, data) {
+    var url = new URI(str || '');
+    var search = url.search(true);
+    url.search(_.extend(search, data));
+    return url.normalizeQuery().toString();
+  })
+}
+var env = nunjucks.configure({ autoescape: true });
+//var env = nunjucks.configure('/views', { autoescape: true });
+
+filters(env);
+
+itemsjs = itemsjs(items, search_config);
+
 var requestCatalog = function(data) {
-  data = _.extend({
+
+  History.pushState(null, document.title, decodeURIComponent(data.url));
+
+  var queries = URI(data.url).search(true)
+  if (queries.filters) {
+    queries.filters = JSON.parse(queries.filters);
+  }
+
+  var filters = queries.filters;
+  var result = itemsjs.search(queries);
+
+  var render = nunjucks.render('views/catalog.html.twig', {
+    items: result.data.items,
+    website: website_config,
+    pagination: result.pagination,
+    page: 1,
+    is_ajax: true,
+    aggregations: result.data.aggregations,
+    filters: filters,
+
+  });
+
+  jQuery("#content").html(render);
+
+  /*data = _.extend({
     success: function(result, status) {
       jQuery("#content").html(result);
-      History.pushState(null, document.title, decodeURIComponent(data.url));
     },
     dataType: 'html'
   }, data);
-  jQuery.ajax(data);
+  jQuery.ajax(data);*/
 }
 
 
@@ -86,4 +153,15 @@ jQuery(document).ready(function() {
     History.back()
     event.preventDefault()
   })
+
+  $('#main_query').keyup(function() {
+    var uri = URI();
+
+    uri.removeSearch('query');
+    uri.addSearch('query', $(this).val());
+
+    requestCatalog({
+      url: uri.href()
+    });
+  });
 })
