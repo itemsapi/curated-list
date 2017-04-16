@@ -36,9 +36,8 @@ var filters = function(env) {
   })
 }
 var env = nunjucks.configure({ autoescape: true });
-//var env = nunjucks.configure('views', { autoescape: true });
+//var env = nunjucks.configure('/views', { autoescape: true });
 
-// temporary
 filters(env);
 
 itemsjs = itemsjs(items, search_config);
@@ -55,8 +54,7 @@ var requestCatalog = function(data) {
   var filters = queries.filters;
   var result = itemsjs.search(queries);
 
-  //var render = nunjucks.render('basic/catalog.html.twig', {
-  var render = env.render('views/catalog_ajax.html.twig', {
+  var render = nunjucks.render('views/catalog.html.twig', {
     items: result.data.items,
     website: website_config,
     pagination: result.pagination,

@@ -105,7 +105,7 @@ gulp.task('generate-html', () => {
   }))
 
   .pipe(nunjucksRender({
-    path: 'views',
+    path: './',
     manageEnv: manageEnvironment
   }))
   .pipe(rename('index.html'))
