@@ -52,7 +52,6 @@ npm start
 Result:
 
 ![](https://media.giphy.com/media/xUPGceuCLz8yFbu4Ew/giphy.gif)
-[//]: # "![Curated list of movies](github/movies.jpg)"
 
 [See another examples](examples.md)
 
