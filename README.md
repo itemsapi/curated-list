@@ -12,7 +12,7 @@ Building nice curated list by editing yaml file
 ## Getting started
 
 ```bash
-git clone git@github.com:itemsapi/curated-list.git
+git clone https://github.com/itemsapi/curated-list.git
 npm install
 ```
 
