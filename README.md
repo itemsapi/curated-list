@@ -49,7 +49,7 @@ Result:
 ## Short guide
 
 After running `npm run build` all html, css and js files are generated in `docs` folder. 
-You can use `docs` files for github pages, netlify or nginx deployment. 
+You can use `docs` files for github pages or netlify deployment or maybe even AWS S3. 
 
 ## Deployment
 
