@@ -45,49 +45,27 @@ itemsjs = itemsjs(items, search_config);
 
 var requestCatalog = function(data) {
 
-
   History.pushState(null, document.title, decodeURIComponent(data.url));
 
-  console.log('queries');
   var queries = URI(data.url).search(true)
   if (queries.filters) {
     queries.filters = JSON.parse(queries.filters);
   }
 
-  //console.log(queries);
-
-  var filters = {
-    tags:['json']
-  }
-
   var filters = queries.filters;
-
-  var params = {
-    filters: filters
-  }
-
-  console.log(data);
   var result = itemsjs.search(queries);
-
-  console.log('result');
-  console.log(result);
 
   //var render = nunjucks.render('basic/catalog.html.twig', {
   var render = env.render('views/catalog_ajax.html.twig', {
     items: result.data.items,
     website: website_config,
     pagination: result.pagination,
-    //all_items: JSON.stringify(config.data.values),
-    //search_config: JSON.stringify(config.search),
-    //query: req.query.query,
     page: 1,
     is_ajax: true,
-    //url: req.url,
     aggregations: result.data.aggregations,
     filters: filters,
 
   });
-  //console.log(render);
 
   jQuery("#content").html(render);
 
@@ -179,21 +157,11 @@ jQuery(document).ready(function() {
   })
 
   $('#main_query').keyup(function() {
-    //alert( "Handler for .keyup() called." );
-    console.log($(this).val());
     var uri = URI();
-    console.log(uri);
 
     uri.removeSearch('query');
     uri.addSearch('query', $(this).val());
 
-    /*if (!$(this).val()) {
-
-    }*/
-    //var queries = URI().search(true)
-    //console.log(queries);
-    //var url = new URI(str || '');
-    //console.log();
     requestCatalog({
       url: uri.href()
     });

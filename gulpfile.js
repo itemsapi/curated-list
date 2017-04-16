@@ -15,7 +15,7 @@ var js_list = [
   'bower_components/jquery/dist/jquery.min.js',
   'bower_components/itemsjs/dist/itemsjs.js',
   'bower_components/nunjucks/browser/nunjucks-slim.js',
-  'docs/templates.js',
+  'docs/js/templates.js',
   'bower_components/bootstrap/dist/js/bootstrap.js',
   'bower_components/lodash/dist/lodash.min.js',
   'bower_components/history.js/scripts/bundled/html4+html5/jquery.history.js',
@@ -125,3 +125,10 @@ gulp.task('minify-html', () => {
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest('docs'));
 });
+
+gulp.task('watch', () => {
+  //gulp.watch('views/**/*.html.twig', ['templates.js']);
+  //gulp.watch('assets/**/*.js', ['js']);
+  gulp.watch(['assets/**/*.js', 'views/**/*.html.twig'], ['js']);
+});
+
