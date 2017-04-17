@@ -10,8 +10,11 @@ const nunjucksRender = require('gulp-nunjucks-render');
 const data = require('gulp-data');
 const gulpSequence = require('gulp-sequence');
 const htmlmin = require('gulp-htmlmin');
+const yaml = require('js-yaml');
+const fs   = require('fs');
+const argv = require('yargs').argv;
 
-var js_list = [
+const js_list = [
   'bower_components/jquery/dist/jquery.min.js',
   'bower_components/itemsjs/dist/itemsjs.js',
   'bower_components/nunjucks/browser/nunjucks-slim.js',
@@ -24,7 +27,7 @@ var js_list = [
   'bower_components/jquery-ui/jquery-ui.min.js'
 ];
 
-var css_list = [
+const css_list = [
   'assets/navbar.css',
   'assets/prism.css',
   'assets/custom.css',
@@ -73,10 +76,10 @@ gulp.task('generate-html', () => {
     require('./src/filters')(environment);
   }
 
-  var config = require('./config/index').get();
-  //console.log(config);
+  var configFile = argv.config || 'config.yaml';
 
-  var getData = require('./config/items')(config)
+  var config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
+  var getData = require('./src/loaditems')(config)
   .then((res) => {
 
     var itemsjs = require('itemsjs')(res, config.search);
@@ -130,6 +133,6 @@ gulp.task('watch', () => {
   //gulp.watch('views/**/*.html.twig', ['templates.js']);
   //gulp.watch('assets/**/*.js', ['js']);
   gulp.watch(['assets/**/*.js', 'views/**/*.html.twig'], ['js']);
-  gulp.watch(['config.yaml'], ['build']);
+  gulp.watch(['*.yaml'], ['build']);
 });
 

@@ -1,0 +1,54 @@
+website:
+  title: List of databases
+  layout: 
+    name: table
+    columns: 
+      - name
+      - type
+      - tags
+      - written
+search:
+  searchableFields: ['name', 'tags', 'written', 'type']
+  aggregations:
+    type: 
+      size: 15
+      title: Types
+    tags: 
+      size: 15
+      title: Tags
+    written: 
+      size: 15
+      title: Written in
+data:
+  values:
+    - name: Aerospike
+    - name: MongoDB
+      tags:
+        - json
+        - aggregation
+        - geospatial
+      type: document
+    - name: MySQL
+    - name: SQLite
+      type: rdbms
+      tags:
+        - self-contained
+        - serverless
+        - zero-configuration
+        - transactional
+    - name: RethinkDB
+    - name: HBase
+      written: Java
+    - name: Memcache
+      type: key-value
+    - name: Redis
+      tags: 
+        - speed
+      type: key-value
+      written: C
+    - name: Rocksdb
+      type: key-value
+      written: C
+    - name: PostgreSQL
+    - name: Neo4j
+      type: graph

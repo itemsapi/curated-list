@@ -61,6 +61,13 @@ Result:
 After running `npm run build` all html, css and js files are generated in `docs` folder. 
 You can use `docs` files for github pages or netlify deployment or maybe even AWS S3. 
 
+
+Generate website with different config:
+
+```bash
+npm run build --config databases.yaml
+```
+
 ## Deployment
 
 - https://www.netlify.com/ (incredibly easy and free hosting for open source)
