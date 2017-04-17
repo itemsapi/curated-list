@@ -4,8 +4,10 @@ website:
     name: table
     columns: 
       - name
+      - url
       - type
       - tags
+      - created
       - written
 search:
   searchableFields: ['name', 'tags', 'written', 'type']
@@ -23,14 +25,18 @@ data:
   values:
     - name: Aerospike
     - name: MongoDB
+      url: https://www.mongodb.com/
       tags:
         - json
         - aggregation
         - geospatial
-      type: document
+      created: 1989
+      type: Document
+      written: C++
     - name: MySQL
+      created: 1995
     - name: SQLite
-      type: rdbms
+      type: RDBMS
       tags:
         - self-contained
         - serverless
@@ -38,17 +44,35 @@ data:
         - transactional
     - name: RethinkDB
     - name: HBase
+      type: Wide column store
+      url: http://hbase.apache.org/
+      created: 2008
       written: Java
     - name: Memcache
-      type: key-value
+      type: Key-value
     - name: Redis
+      created: 2009
       tags: 
         - speed
-      type: key-value
+      type: Key-value
       written: C
+    - name: Elasticsearch
+      type: Search Engine
+      written: Java
+    - name: Solr
+      type: Search Engine
+      url: http://lucene.apache.org/solr/
+      written: Java
+      created: 2004
+      desc: A widely used enterprise search engine based on Apache Lucene
     - name: Rocksdb
-      type: key-value
+      type: Key-value
       written: C
     - name: PostgreSQL
+      type: RDBMS
+      created: 1989
     - name: Neo4j
-      type: graph
+      type: Graph
+      url: https://neo4j.com/
+      created: 2007
+      written: Scala

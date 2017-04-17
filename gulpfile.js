@@ -82,9 +82,12 @@ gulp.task('generate-html', () => {
   var getData = require('./src/loaditems')(config)
   .then((res) => {
 
+
+    config.website = config.website || {};
+
     var itemsjs = require('itemsjs')(res, config.search);
     var result = itemsjs.search({
-      per_page: 12,
+      per_page: config.website.per_page || 12,
       page: 1
     });
 
@@ -114,6 +117,43 @@ gulp.task('generate-html', () => {
   .pipe(rename('index.html'))
   .pipe(gulp.dest('./docs'));
 });
+
+gulp.task('readme', () => {
+
+  var configFile = argv.config || 'config.yaml';
+
+  var config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
+  var getData = require('./src/loaditems')(config)
+  .then((res) => {
+
+    config.website = config.website || {};
+
+    var itemsjs = require('itemsjs')(res, config.search);
+    var result = itemsjs.search({
+      per_page: 20,
+      page: 1
+    });
+
+    return {
+      items: result.data.items,
+      website: config.website
+    };
+  })
+
+  return gulp.src('views/readme.html.twig')
+  .pipe(data(function(file, callback) {
+    getData.then((res) => {
+      return callback(null, res);
+    })
+  }))
+
+  .pipe(nunjucksRender({
+    path: './'
+  }))
+  .pipe(rename('README.md'))
+  .pipe(gulp.dest('./'));
+});
+
 
 gulp.task('build', gulpSequence(
   'templates.js',

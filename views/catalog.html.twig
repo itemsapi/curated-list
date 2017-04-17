@@ -38,7 +38,13 @@
               {% for column in website.layout.columns %}
                 <td>
                   {% if column == 'image' %}
+                  <td>
                   <img style="width: 80px;" src="{{ item.image }}" alt="{{ item.name }}" />
+                  </td>
+                  {% elseif column == 'url' %}
+                  <td>
+                    <a target="_blank" href="{{ item.url }}">{{ item.url }}</a>
+                  </td>
                   {% else %}
                   <td>
                     {{ item[column] }}

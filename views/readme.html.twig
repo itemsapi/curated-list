@@ -1,0 +1,19 @@
+# Curated list of xxx
+
+Full list - https://databases.netlify.com/
+
+## List
+
+{#{% for item in items %}
+* [Aerospike](https://github.com/aerospike/aerospike-server) - desc
+{% endfor %}#}
+
+{% for item in items %}
+{% if website.layout.columns %}* [{{ item['name'] }}]({{ item['url']}}) - {{ item['desc']}}{% endif %}
+{% endfor %}
+
+See all databases - https://databases.netlify.com/
+
+## Contribution
+
+Edit `config.yaml` to improve list.
