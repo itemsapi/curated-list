@@ -8,15 +8,17 @@ website:
       - name
       - tags
 search:
+  searchableFields: ['name', 'tags', 'genres', 'actors']
   aggregations:
     tags: 
       size: 15
       title: Tags
+    genres: 
+      size: 10
+      title: Genres
     actors: 
       size: 10
       title: Actors
 data:
-  type: file
-  path: imdb.json
-  #type: url
-  #url: https://storage.googleapis.com/imdb-list/imdb.json
+  type: url
+  url: https://storage.googleapis.com/imdb-list/imdb.json

@@ -29,12 +29,13 @@ website:
       - name
       - tags
 search:
+  searchableFields: ['name', 'tags', 'genres', 'actors']
   aggregations:
     tags: 
       size: 15
       title: Tags
     genres: 
-      size: 15
+      size: 10
       title: Genres
     actors: 
       size: 10
